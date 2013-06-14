@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="gapi_client.js"></script>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </head>
+  <body ng-controller="mainCtrl">
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Latin Project</a>
+      </div>
+    </div>
+    <div class="container">
+      <h2> Libros Abiertos: </h2>
+      <h3 ng-hide="documents.length"> No hay documentos. Cree uno para empezar. </h3>
+
+      <table class="table table-striped" ng-show="documents.length">
+        <thead>
+          <tr>
+            <td> <b> Nombre Documento </b> </td>
+            <td>  </td>
+            <td>  </td>
+            <td>  </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="doc in documents">
+            <td> {{doc.name}} </td>
+            <td> <a href="{{doc.link}}" target="_blank" class="btn btn-success"> Editar </a> </td> 
+            <td> <a href="{{doc.view_link}}" target="_blank" class="btn btn-warning"> Ver </a> </td> 
+            <td> <a href="{{doc.html_link}}" class="btn btn-danger" > Convertir a CNXML </a> </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <div class="well">
+        <form class="form-inline">
+          <label> Nuevo Documento:
+            <input type="text" id="documentname" ng-model="document_name" ng-disabled="authorized"/>
+          </label>
+          <button class="btn btn-primary" id="createbutton" ng-click="createNewFile()" ng-disabled="authorized"> 
+            Crear
+          </button>
+        </form>
+      </div>
+      <!--Add a file picker for the user to start the upload process -->
+      <br>
+      <br>
+    <button class="btn btn-inverse" id="createbutton" ng-click="authorize()" ng-show="disauthorized"> 
+      Autorizar
+    </button>
+    </div>
+  </body>
+</html>
